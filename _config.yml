@@ -9,6 +9,9 @@ description:      des
 url:              http://YWHyuk.github.io
 baseurl:          /
 
+layouts_dir         : _layouts
+includes_dir        : _includes
+
 paginate:         2
 paginate_path:    "/page:num/"
 # Custom vars
