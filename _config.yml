@@ -9,7 +9,7 @@ description:      des
 url:              http://YWHyuk.github.io
 baseurl:          /
 
-paginate:         1
+paginate:         2
 
 # Custom vars
 version:          2.1.0
