@@ -3,8 +3,8 @@ layout: page
 title: Category
 ---
 
-{% capture site_categories %}{% for category in site.categories %}{{ category | first }}{% unless forloop.last %},{% endunless %}{% endfor %}{% endcapture %}
-{% assign categories_list = site_categories | split:',' | sort %}
+{% capture site.categories %}{% for category in site.categories %}{{ category | first }}{% unless forloop.last %},{% endunless %}{% endfor %}{% endcapture %}
+{% assign categories.list = site.categories | split:',' | sort %}
 
 <ul class="entry-meta inline-list">
 	{% for item in (0..site.categories.size) %}{% unless forloop.last %}
