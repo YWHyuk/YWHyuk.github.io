@@ -2,15 +2,11 @@
 markdown:         redcarpet
 highlighter:      pygments
 
-# Where things are
-layouts_dir         : _layouts
-includes_dir        : _includes
-
 # Setup
 title:            Hyde
 tagline:          'A Jekyll theme'
 description:      'A brazen two-column <a href="http://jekyllrb.com" target="_blank">Jekyll</a> theme that pairs a prominent sidebar with uncomplicated content. Made by <a href="https://twitter.com/mdo" target="_blank">@mdo</a>.'
-url:              https://YWHyuk.github.io
+url:              https://YWHyuk.github.io/index.html
 baseurl:          /
 
 paginate:         5
