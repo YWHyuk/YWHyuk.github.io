@@ -7,7 +7,7 @@ title:            DEWH
 tagline:          IT
 description:      des
 url:              http://YWHyuk.github.io
-baseurl:          /
+baseurl:          http://YWHyuk.github.io/
 
 layouts_dir         : _layouts
 includes_dir        : _includes
