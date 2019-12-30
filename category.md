@@ -2,20 +2,16 @@
 layout: page
 title: Category
 ---
-v id="archives">
-{% for category in site.categories %}
-  <div class="archive-group">
-      {% capture category_name %}{{ category | first }}{% endcapture %}
-          <div id="#{{ category_name | slugize }}"></div>
-	      <p></p>
-
-	          <h3 class="category-head">{{ category_name }}</h3>
-		      <a name="{{ category_name | slugize }}"></a>
-		          {% for post in site.categories[category_name] %}
-			      <article class="archive-item">
-			            <h4><a href="{{ site.baseurl }}{{ post.url }}">{{post.title}}</a></h4>
-				        </article>
-					    {% endfor %}
-					      </div>
-					      {% endfor %}
-					      </div>
+<ul>
+{% assign categories_list = site.categories %}
+  {% if categories_list.first[0] == null %}
+    {% for category in categories_list %}
+      <li><a href="#{{ category | downcase | downcase | url_escape | strip | replace: ' ', '-' }}">{{ category | camelcase }} ({{ site.tags[category].size }})</a></li>
+    {% endfor %}
+  {% else %}
+    {% for category in categories_list %}
+      <li><a href="#{{ category[0] | downcase | url_escape | strip | replace: ' ', '-' }}">{{ category[0] | camelcase }} ({{ category[1].size }})</a></li>
+    {% endfor %}
+  {% endif %}
+{% assign categories_list = nil %}
+</ul>
