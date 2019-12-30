@@ -1,18 +1,16 @@
 # Dependencies
 markdown:         redcarpet
-highlighter:      pygments
+highlighter:      rouge
 
 # Setup
 title:            Hyde
 tagline:          'A Jekyll theme'
-description:      'A brazen two-column <a href="http://jekyllrb.com" target="_blank">Jekyll</a> theme that pairs a prominent sidebar with uncomplicated content. Made by <a href="https://twitter.com/mdo" target="_blank">@mdo</a>.'
+description:      IT&Tech
 url:              https://YWHyuk.github.io
 baseurl:          /
 
 paginate:         5
 
-production_url:   https://YWHyuk.github.io
-source_url:       https://github.com/YWHyuk/YWHyuk.github.io/
 
 
 # Custom vars
