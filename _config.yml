@@ -10,7 +10,7 @@ url:              http://YWHyuk.github.io
 baseurl:          /
 
 paginate:         2
-
+paginate_path:    "/page:num/"
 # Custom vars
 version:          2.1.0
 
