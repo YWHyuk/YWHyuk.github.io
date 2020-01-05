@@ -75,16 +75,17 @@ tags : [paging, arm64, 5.3.18]
 
 &nbsp;  캐시의 스펙에 따라 정확한 값은 달라지겠지만, 최소 TLB Miss count는 아래 표와 같습니다.
 
-|   | PGD  | PUD  | PMD  | PTE  | Total |
-|---|:--:|:---:|:---:|:---:|:--:|
+|                           | PGD| PUD | PMD | PTE | Total |
+|---|:---:|:---:|:---:|:---:|:---:|
 |  Section Mapping TLB Miss | 1 | 1  | 11  | 0  | 12|
 |   Non Section Mapping TLB Miss| 1  | 1  | 11  | 11*512  | 5646| 
+
 &nbsp; 이렇게 연속된 물리 메모리를 매핑할 때에는 블록 매핑을 하는게 TLB 활용에 도움이 되는 것 같습니다. 이와 비슷한 이유로 페이지 엔트리에서 **Continuous bit** 옵션을 제공합니다.
  
- ### Memory Size
+### Memory Size
 &nbsp; 섹션 매핑을 할 때와 섹션 매핑을 하지 않았을 때, 변환 테이블을 구성하기 위한 페이지 수를 비교하면서 섹션 매핑을 하면서 얻는 이득을 살펴봅시다.
 |   | PGD  | PUD  | PMD  | PTE  | Total |
-|---|:--:|:---:|:---:|:---:|:--:|
+|---|:---:|:---:|:---:|:---:|:---:|
 |  Section Mapping Needed Page | 1 | 1  | 1  | 0  | 3|
 |   Non Section Mapping Needed Page| 1  | 1  | 1  | 11  | 14|
 &nbsp; 다음 단계의 테이블의 전체 매핑 크기만큼 물리 메모리가 연속되어 있다면, 메모리 활용 측면에서 섹션 매핑을 하는게 훨씬 더 합리적으로 보입니다.
