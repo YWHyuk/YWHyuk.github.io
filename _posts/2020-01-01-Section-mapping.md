@@ -2,7 +2,7 @@
 layout: post
 title: Section mapping
 comments: true
-categories: "Linux kernel"
+categories: Linux-kernel
 tags : [paging, arm64, 5.3.18]
 ---
 
@@ -71,7 +71,7 @@ tags : [paging, arm64, 5.3.18]
 ### TLB Miss
 &nbsp; 그렇다면 섹션 매핑을 할 때와 섹션 매핑을 하지 않았을 때를 비교하면서 섹션 매핑을 하면서 얻는 이득을 살펴봅시다. 
 
-&nbsp; 비교를 위해, 간단한 벤치 마크 프로그램을 떠올려봅시다. 이 벤치 마크 프로그램은 커널 이미지를 처음부터 끝까지 순차적으로 읽는 프로그램입니다. 커널 이미지는 22MB고 2MB로 정렬되어 있다고 가정합니다. 
+&nbsp; 비교를 위해, 간단한 벤치 마크 프로그램을 떠올려봅시다. 이 벤치 마크 프로그램은 커널 이미지를 처음부터 끝까지 순차적으로 읽는 프로그램입니다. 커널 설정은 48Bit, 4K page이고, 커널 이미지는 22MB고 2MB로 정렬되어 있다고 가정합니다. 
 
 &nbsp; 아래 그림은 48Bit, 4K page에서 가상 주소의 변환 과정을 전부 나타낸 그림입니다. 각 Lookup 과정마다 TLB가 Miss 또는 Hit할 것 입니다.
 ![48_4](https://github.com/YWHyuk/YWHyuk.github.io/blob/master/img/48_4K_translation.PNG?raw=true)
@@ -86,7 +86,7 @@ tags : [paging, arm64, 5.3.18]
 &nbsp; 이렇게 연속된 물리 메모리를 매핑할 때에는 블록 매핑을 하는게 TLB 활용에 도움이 되는 것 같습니다. 이와 비슷한 이유로 페이지 엔트리에서 **Continuous bit** 옵션을 제공합니다.
  
 ### Memory Size
-&nbsp; 섹션 매핑을 할 때와 섹션 매핑을 하지 않았을 때, 변환 테이블을 구성하기 위한 페이지 수를 비교하면서 섹션 매핑을 하면서 얻는 이득을 살펴봅시다.
+&nbsp; 48Bit, 4K page일때, 섹션 매핑을 할 때와 섹션 매핑을 하지 않았을 때, 변환 테이블을 구성하기 위한 페이지 수를 비교하면서 섹션 매핑을 하면서 얻는 이득을 살펴봅시다.
 
 |   | PGD  | PUD  | PMD  | PTE  | Total |
 |---|:---:|:---:|:---:|:---:|:---:|
