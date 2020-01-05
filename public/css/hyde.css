@@ -407,3 +407,7 @@ a.sidebar-nav-item:focus {
 .tags-cloud > div{
   background: #202020;
 }
+
+html, body {
+    overflow-x: hidden;
+}
