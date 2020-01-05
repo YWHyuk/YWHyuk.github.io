@@ -53,7 +53,7 @@ tags : [Paging, arm64, 5.3.18]
 
  &nbsp;**ArmV8 아키텍처 매뉴얼**에 따르면, 변환 레벨에 따라 엔트리 디스크립터의 포맷의 의미가 다르다고 합니다. 엔트리 디스크립터는 엔트리의 하위 2비트가 결정하며, 대응하는 변환 레벨에 따라 의미가 다릅니다.
  
- ### Descriptor encodings, 0 level, 1 level, 2 level format
+### Descriptor encodings, 0 level, 1 level, 2 level format
 
  - Descriptor bit[0] : 해당 엔트리가 유효한지를 나타냅니다. 유효하지 않은 엔트리를 접근하게 되면 Translation fault를 발생하게 됩니다.
  - Descriptor bit[1]: 디스크립터의 타입을 식별합니다.
