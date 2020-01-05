@@ -2,7 +2,7 @@
 layout: post
 title: Section mapping
 comments: true
-categories: Linux kernel
+categories: Linux-kernel
 tags : [Paging, arm64, 5.3.18]
 ---
 
@@ -48,8 +48,11 @@ tags : [Paging, arm64, 5.3.18]
 
 구분할 수 있어야 합니다. MMU는 페이지 테이블 엔트리의 디스크립터로 이를 식별할 수 있습니다.
 ## Entry Descriptor
- 
+
+---
+
  &nbsp;**ArmV8 아키텍처 매뉴얼**에 따르면, 변환 레벨에 따라 엔트리 디스크립터의 포맷의 의미가 다르다고 합니다. 엔트리 디스크립터는 엔트리의 하위 2비트가 결정하며, 대응하는 변환 레벨에 따라 의미가 다릅니다.
+ 
  ### Descriptor encodings, 0 level, 1 level, 2 level format
 
  - Descriptor bit[0] : 해당 엔트리가 유효한지를 나타냅니다. 유효하지 않은 엔트리를 접근하게 되면 Translation fault를 발생하게 됩니다.
@@ -64,6 +67,8 @@ tags : [Paging, arm64, 5.3.18]
  - Descriptor bit[1:0] = 0b11 : 매핑된 물리 메모리 주소를 저장하고 있음을 의미합니다.
 
 ## 관련 자료 
+
+---
 
  - **ARMv8-A_Architecture_Reference_Manual (Chapter D5.4)** 
  - http://jake.dothome.co.kr/pt64/](http://jake.dothome.co.kr/pt64/
