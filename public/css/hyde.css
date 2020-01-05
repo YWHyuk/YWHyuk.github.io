@@ -411,3 +411,6 @@ a.sidebar-nav-item:focus {
 html, body {
     overflow-x: hidden;
 }
+code {
+  font-family: consolas
+}
