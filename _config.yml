@@ -13,6 +13,10 @@ includes_dir        : _includes
 
 paginate:         2
 paginate_path:    "/page:num/"
+
+#Catgory directory
+category_dir : category
+
 # Custom vars
 version:          2.1.0
 
