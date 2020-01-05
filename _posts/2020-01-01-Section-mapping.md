@@ -73,6 +73,9 @@ tags : [paging, arm64, 5.3.18]
 
 &nbsp; 비교를 위해, 간단한 벤치 마크 프로그램을 떠올려봅시다. 이 벤치 마크 프로그램은 커널 이미지를 처음부터 끝까지 순차적으로 읽는 프로그램입니다. 커널 이미지는 22MB고 2MB로 정렬되어 있다고 가정합니다. 
 
+&nbsp; 아래 그림은 48Bit, 4K page에서 가상 주소의 변환 과정을 전부 나타낸 그림입니다. 각 Lookup 과정마다 TLB가 Miss 또는 Hit할 것 입니다.
+![48_4](https://github.com/YWHyuk/YWHyuk.github.io/blob/master/img/48_4K_translation.PNG?raw=true)
+
 &nbsp;  캐시의 스펙에 따라 정확한 값은 달라지겠지만, 최소 TLB Miss count는 아래 표와 같습니다.
 
 |                           | PGD| PUD | PMD | PTE | Total |
@@ -84,10 +87,12 @@ tags : [paging, arm64, 5.3.18]
  
 ### Memory Size
 &nbsp; 섹션 매핑을 할 때와 섹션 매핑을 하지 않았을 때, 변환 테이블을 구성하기 위한 페이지 수를 비교하면서 섹션 매핑을 하면서 얻는 이득을 살펴봅시다.
+
 |   | PGD  | PUD  | PMD  | PTE  | Total |
 |---|:---:|:---:|:---:|:---:|:---:|
 |  Section Mapping Needed Page | 1 | 1  | 1  | 0  | 3|
 |   Non Section Mapping Needed Page| 1  | 1  | 1  | 11  | 14|
+
 &nbsp; 다음 단계의 테이블의 전체 매핑 크기만큼 물리 메모리가 연속되어 있다면, 메모리 활용 측면에서 섹션 매핑을 하는게 훨씬 더 합리적으로 보입니다.
  
 ## 관련 자료 
