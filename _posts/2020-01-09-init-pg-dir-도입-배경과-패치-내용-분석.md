@@ -1,11 +1,11 @@
 ---
- title:init_pg_dir 도입 배경과 패치 내용 분석
- layout: post
+ layout : post
+ title: init_pg_dir 도입 배경과 패치 내용 분석
  comment: true
  categories: Linux-kernel
-tags : [init_pg_dir,swapper_pg_dir]
-
+ tags : [init_pg_dir,swapper_pg_dir]
 ---
+
 ## init_pg_dir, swapper_pg_dir
 <br>
 &nbsp; head.S의 map_memory 매크로를 하다 보면 이상한 점을 찾을 수 있다. 
