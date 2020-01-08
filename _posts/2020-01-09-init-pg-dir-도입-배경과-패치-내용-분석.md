@@ -23,6 +23,7 @@
 	add	x6, x6, x5			// runtime __va(_end)
 
 	map_memory x0, x1, x5, x6, x7, x3, x4, x10, x11, x12, x13, x14
+	
 &nbsp; 위 코드는 커널 이미지를 **init_pg_dir**에 매핑한다. 하지만 map_memory의 매크로는 아래의 코드와 같고, 중간에 **swapper_pg**의 이름을 같는 전처리 구문이 있다. 
 		
 	.macro map_memory, tbl, rtbl, vstart, vend, flags, phys, pgds, istart, iend, tmp, count, sv
@@ -38,6 +39,7 @@
 		populate_entries \tbl, \rtbl, \istart, \iend, #PMD_TYPE_TABLE, #PAGE_SIZE, \tmp
 		mov \tbl, \sv
 	#endif
+	
 &nbsp; 해당 코드를 처음 분석할때는, 저장하는 곳은 **init_pg_dir**인데 전처리 조건의 이름은  **swapper_pg**에 관련되어 매우 혼란스러웠다. 이런 불일치는 **init_pg_dir**이 도입되면서 발생한 문제이다. 해당 패치 내용을 아래에서 자세히 살펴보자.
 
 ## init_pg_dir 도입 패치 분석
