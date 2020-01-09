@@ -48,7 +48,11 @@
 ![enter image description here](https://github.com/YWHyuk/YWHyuk.github.io/blob/master/img/init_pg_dir.PNG?raw=true)
 &nbsp; 위 패치 이전에는 swapper_pg_dir에 부트 타임 페이지 테이블을 만들었다. 이런 이유로 map_memory의 전처리 조건 이름이 swapper_pg로 시작했다.
 
-&nbsp; 그럼 본격적으로 패치 내용을 이해해 보자. 이전의 커널은 swapper_pg_dir에 커널 이미지를 매핑했다. va_bit가 48비트이고, 4K page라면 부트 타임 페이지 테이블을 위해 총 3개의 페이지가 할당된다. 그런 다음, paging_init()에서 커널 이미지이 정식으로 매핑된다. 이 과정에서 swapper_pg_dir의 첫 페이지만 재사용되고, 나머지 두 페이지는 사용되지 않는다. 그런데 사용되지 않는 2페이지도 rodata 섹션에 속하므로, 예약된 메모리로 등록되게 된다. 
-&nbsp; 따라서 위 패치는 부트 타임 페이지 테이블을 init 섹션에 존재하는 init_pg_dir에 생성한다. swapper_pg_dir은 한 페이지만 정적으로 할당된다. paging_init()단계에서는 커널 이미지를 빈 swapper_pg_dir에 매핑한다. init_pg_dir은 init 섹션이므로, 가용 메모리로 등록되게 된다. 
+&nbsp; 그럼 본격적으로 패치 내용을 이해해 보자. 이전의 커널은 swapper_pg_dir에 커널 이미지를 매핑했다. va_bit가 48비트이고, 4K page라면 부트 과정 동안 페이지 테이블을 위해 총 3개의 페이지가 사용된다. paging_init()에서 커널 이미지이 정식으로 매핑된다. 정식 매핑 과정에서 swapper_pg_dir의 첫 페이지만 재사용되고, 나머지 두 페이지는 사용되지 않는다. 해당 내용은 아래 그림과 같다.
+![enter image description here](https://github.com/YWHyuk/YWHyuk.github.io/blob/master/img/swapper_pg_dir.png?raw=true)
 
-작성 중...
+&nbsp; 사용되지 않는 2페이지도 rodata 영역에 묶여 있으므로, 해당 페이지는 사용할 수 없게된다. 따라서 rodata 영역에 속하지 않고, 부팅 과정에서만 사용할 수 있는 공간이 필요하게 되었고 이것이 바로 init_pg_dir이다. 
+
+&nbsp;  init_pg_dir은 패치 이전 swapper_pg_dir의 크기만큼 정적으로 할당되고, swapper_pg_dir은 한 페이지만 정적으로 할당받게 된다. 부팅 타임에는 init_pg_dir에 페이지 테이블을 구성하고, paging_init() 과정에서 swapper_pg_dir로 페이지 테이블으로 교체되며, init_pg_dir의 공간은 반환된다.
+ 
+ &nbsp; 부팅 과정에만 요구되었던 메모리를 분리하여 메모리를 조금 더 효율적으로 쓰게한 패치라고 생각할 수 있겠다.
