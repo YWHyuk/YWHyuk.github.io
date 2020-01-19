@@ -44,7 +44,7 @@
 
 ## init_pg_dir 도입 패치 분석
 <br>
-&nbsp; 패치의 이름은 [Arm64/mm: Separate boot-time page tables from swapper_pg_dir](https://github.com/iamroot16/linux/commit/2b5548b68199c17c1466d5798cf2c9cd806bdaa9#diff-fa9e05a9b81e3f7eb7a1d4c18baeb77c)이다. 먼저 아래 변경사항을 확인해 보자.
+&nbsp; 패치의 이름은 [Arm64/mm: Separate boot-time page tables from swapper_pg_dir](https://github.com/iamroot16/linux/commit/2b5548b68199c17c1466d5798cf2c9cd806bdaa9#diff-fa9e05a9b81e3f7eb7a1d4c18baeb77c) 이다. 먼저 아래 변경사항을 확인해 보자.
 
 ![enter image description here](https://github.com/YWHyuk/YWHyuk.github.io/blob/master/img/init_pg_dir.PNG?raw=true)
 
