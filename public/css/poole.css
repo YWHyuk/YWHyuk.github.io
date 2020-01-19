@@ -107,13 +107,14 @@ h5 {
   font-size: 1rem;
 }
 h6 {
-  margin-top: 0rem;
+  margin-bottom: 1.5rem;
+  margin-top: 1.5rem;
   font-size: 0.9rem;
 }
 /* Body text */
 p {
-  margin-top: 0;
-  margin-bottom: 0.5rem;
+  margin-top: 1.5;
+  margin-bottom: 1.5rem;
   font-size: 0.8rem;
 }
 
