@@ -44,8 +44,10 @@
 
 ## init_pg_dir 도입 패치 분석
 <br>
-&nbsp; 패치의 이름은 **[Arm64/mm: Separate boot-time page tables from swapper_pg_dir]**(https://github.com/iamroot16/linux/commit/2b5548b68199c17c1466d5798cf2c9cd806bdaa9#diff-fa9e05a9b81e3f7eb7a1d4c18baeb77c)이다. 먼저 아래 변경사항을 확인해 보자.
+&nbsp; 패치의 이름은 [Arm64/mm: Separate boot-time page tables from swapper_pg_dir](https://github.com/iamroot16/linux/commit/2b5548b68199c17c1466d5798cf2c9cd806bdaa9#diff-fa9e05a9b81e3f7eb7a1d4c18baeb77c)이다. 먼저 아래 변경사항을 확인해 보자.
+
 ![enter image description here](https://github.com/YWHyuk/YWHyuk.github.io/blob/master/img/init_pg_dir.PNG?raw=true)
+
 &nbsp; 위에서 봤던 코드 내용에서 변경된 내용을 확인할 수 있다. 위 패치 이전에는 swapper_pg_dir에 부트 타임 페이지 테이블을 만들었다. 이런 이유로 map_memory의 전처리 조건 이름이 swapper_pg와 관련된 것이다.
 
 &nbsp; 그렇다면 왜 이런 패치를 수행했는지 알아보자. 앞서 말했듯이 이전 버전의 커널은 부팅 타임 페이지 테이블을 swapper_pg_dir에 생성한다. 부팅 초기 단계에는 메모리 할당자가 작동하지 않으므로, 정적으로 공간을 할당해줘야 한다.  페이징 관련 설정은 아래와 같다고 가정한다.
@@ -90,6 +92,7 @@
 * line 16,19. swapper_pg_dir의 PGD 페이지 테이블을 재사용한다. 
 
 &nbsp; 내용을 정리하면, 정식 매핑 과정에서는 메모리 할당자를 사용할 수 있기에 페이지 테이블을 만들기 위한 공간은 동적으로 할당받는다. 페이지 테이블이 구성된 후, swapper_pg_dir의 첫 페이지만 재사용한다.  swapper_pg_dir은 rodata 섹션에 위치해있기 때문에, map_mem 함수에서 사용되지 않는 2페이지도 rodata 섹션에 묶여버리게 된다.
+
 ![enter image description here](https://github.com/YWHyuk/YWHyuk.github.io/blob/master/img/swapper_pg_dir.png?raw=true)
 
 &nbsp; 결론은 다음과 같다. 부팅 단계에 구성한 페이지 테이블은 한 페이지를 제외하고 나머지는 부팅 이후에 사용되지 않는다.  따라서 이 사용되지 않는 영역을 init섹션으로 배치하는게 위 패치의 주요 목적이다. 변경 사항은 크게 세 가지이다.
