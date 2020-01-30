@@ -1,7 +1,7 @@
 ---
  layout : post
  title: init_pg_dir 도입 배경과 패치 내용 분석
- comment: true
+ comments: true
  categories: Linux-kernel
  tags : [init_pg_dir,swapper_pg_dir]
 ---
