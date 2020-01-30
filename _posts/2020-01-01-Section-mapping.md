@@ -76,14 +76,14 @@ tags : [paging, arm64, 5.3.18]
 &nbsp; 아래 그림은 48Bit, 4K page에서 가상 주소의 변환 과정을 전부 나타낸 그림입니다. 각 Lookup 과정마다 TLB가 Miss 또는 Hit할 것 입니다.
 ![48_4](https://github.com/YWHyuk/YWHyuk.github.io/blob/master/img/48_4K_translation.PNG?raw=true)
 
-&nbsp;  캐시의 스펙에 따라 정확한 값은 달라지겠지만, 최소 TLB Miss count는 아래 표와 같습니다.
+&nbsp;  TLB Miss count는 아래 표와 같습니다.
 
-|                           | PGD| PUD | PMD | PTE | Total |
-|---|:---:|:---:|:---:|:---:|:---:|
-|  Section Mapping TLB Miss | 1 | 1  | 1  | 0  | 3|
-|   Non Section Mapping TLB Miss| 1  | 1  | 1  | 11  | 14 | 
+|                           | Total |
+|---|:---:|
+|  Section Mapping TLB Miss | 11 |
+|   Non Section Mapping TLB Miss| 11x512 | 
 
-&nbsp; 이렇게 연속된 물리 메모리를 매핑할 때에는 블록 매핑을 하는게 TLB 활용에 도움이 되는 것 같습니다. 이와 비슷한 이유로 페이지 엔트리에서 **Continuous bit** 옵션을 제공합니다.
+&nbsp; ARM은 가상 주소의 다양한 매핑을 지원하기 위해, TLB는 한 엔트리에 블록 사이즈를 저장합니다. 이를 통해 가상 주소가 이 엔트리의 범위 안에 있는지를 판단할 수 있습니다. 연속된 물리 메모리를 매핑할 때에는 블록 매핑을 하는게 TLB miss를 줄이는 것 같습니다. 이와 비슷한 이유로 페이지 엔트리에서 **Continuous bit** 옵션을 제공합니다.
  
 ### Memory Size
 &nbsp; 48Bit, 4K page일때, 섹션 매핑을 할 때와 섹션 매핑을 하지 않았을 때, 변환 테이블을 구성하기 위한 페이지 수를 비교하면서 섹션 매핑을 하면서 얻는 이득을 살펴봅시다.
