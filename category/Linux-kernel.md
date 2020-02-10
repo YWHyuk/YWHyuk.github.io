@@ -2,6 +2,6 @@
 
 layout: category
 
-title: Linux-kerenl
+title: Linux-kernel
 
 ---
